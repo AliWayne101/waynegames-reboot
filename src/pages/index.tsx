@@ -27,10 +27,10 @@ const Index = () => {
       <Navbar />
       <Highlight />
       <main className='shadow-2xl'>
-        <div className='mb-5 tsize-gtitle'>Featured Games</div>
+        <div className='mb-5 giant'>Featured Games</div>
         <div className="grid sm:grid-cols-5 gap-10 grid-cols-2">
           {games.map((data, index) => (
-            <Entry key={index} entry={data} />
+            <Entry key={index} entry={data} id={index} />
           ))}
         </div>
       </main>
