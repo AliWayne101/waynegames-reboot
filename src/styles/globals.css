@@ -3,25 +3,140 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+  --primary-color: #1574aa;
+  --text-color: #d8e7f8;
+  --d-text-color: #d8dbdf;
+  --secondary-color: #274266;
+  --text-theme: #6634f5;
+  --menu-icon: #212121;
+  --text-alert: rgb(238, 33, 33);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --tsize-egiant: 44px;
+  --tsize-giant: 38px;
+  --tsize-menu: 22px;
+  --tsize-med: 18px;
+  --tsize-norm: 16px;
+  --tsize-small: 14px;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  background-image: url("/assets/bg-main.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: var(--kanit);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
+.menu-icon {
+  background-color: var(--menu-icon);
+}
+
+.tsize-menu {
+  font-size: var(--tsize-menu);
+}
+
+.tsize-gtitle {
+  font-size: var(--tsize-med);
+}
+
+.tsize-small {
+  font-size: var(--tsize-small);
+}
+
+main {
+  padding: 20px 20px;
+}
+
+.entryImage {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: cover !important;
+  position: relative !important;
+}
+
+.logoImage {
+  width: 100px !important;
+  height: auto !important;
+  object-fit: cover !important;
+  position: relative !important;
+}
+
+.link {
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  color: var(--text-theme);
+}
+
+.link:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 0.5px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--text-theme);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.link:hover::after,
+.link:focus::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.link:focus {
+  outline: none;
+}
+
+.blur-nav {
+  backdrop-filter: blur(100px);
+  -moz-backdrop-filter: blur(10px);
+}
+
+.highlight-container {
+  padding: 100px 10%;
+  position: relative;
+}
+
+.py-5p {
+  padding-top: 5% !important;
+  padding-bottom: 5% !important;
+}
+
+.inside-highlight {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  padding: 10%;
+}
+
+.inside-highlight::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/assets/hi-bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(5px);
+  z-index: -1;
+}
+
+h1.giant {
+  font-size: var(--tsize-giant);
+}
+
+.egiant {
+  font-size: var(--tsize-egiant);
 }
