@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app'
 import { Kanit } from 'next/font/google';
 import Head from 'next/head';
@@ -8,18 +9,26 @@ const kanit = Kanit({
   subsets: ["latin"]
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ 
+  Component, 
+  pageProps: {
+    session, ...pageProps
+  } 
+}: AppProps) {
   return (
     <>
-    <style jsx global>{`
-      :root {
-        --kanit: ${kanit.style.fontFamily};
-      }
-    `}</style>
-      <Head>
-        <title>Games Heaven</title>
-      </Head>
-      <Component {...pageProps} />
+    <SessionProvider session={session}>
+      <style jsx global>{`
+        :root {
+          --kanit: ${kanit.style.fontFamily};
+        }
+      `}</style>
+        <Head>
+          <title>Games Heaven</title>
+        </Head>
+        <Component {...pageProps} />
+      </SessionProvider>
     </>
+    
   )
 }

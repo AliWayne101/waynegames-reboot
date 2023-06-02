@@ -2,9 +2,14 @@ import Logo from '@/components/Logo'
 import Link from 'next/link'
 import React from 'react'
 import { RiLoginCircleFill } from 'react-icons/ri'
-import { SiEpicgames, SiUbisoft, SiSteam } from 'react-icons/si'
+import { FiGithub } from 'react-icons/fi'
+import { signIn, signOut, useSession } from 'next-auth/react'
+import Image from 'next/image'
 
 const Navbar = () => {
+
+    const { data: session } = useSession();
+
   return (
     <div className="sticky top-0 flex justify-between bg-secondary tsize-menu mb-5 z-10 blur-nav">
         <div className="pl-5 pt-2 pb-2 flex">
@@ -20,7 +25,25 @@ const Navbar = () => {
             </div> */}
         </div>
         <div className="pr-5 pt-2 pb-2 flex mt-4">
-            <RiLoginCircleFill size={25} className='mt-1' />&nbsp;Login
+            {
+                session ? (
+                    session.user && (
+                        <>
+                        <Image
+                            src={session.user.image!}
+                            height={40}
+                            width={40}
+                            className='rounded-full'
+                            alt='profile'
+                            onClick={() => signOut()}
+                        />
+                        {session.user.name}
+                        </> 
+                    )
+                ) : (
+                    <span className='cursor-pointer flex' onClick={() => signIn('github')}><FiGithub size={32} />&nbsp;Login</span>
+                )
+            }
         </div>
     </div>
   )
