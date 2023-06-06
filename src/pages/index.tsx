@@ -1,4 +1,5 @@
 import Entry from '@/components/Entry';
+import { IGame } from '@/schemas/GameSchema';
 import Footer from '@/sections/Footer';
 import Highlight from '@/sections/Highlight';
 import Navbar from '@/sections/Navbar'
@@ -7,21 +8,6 @@ import { SiUbisoft, SiEpicgames, SiSteam } from 'react-icons/si'
 
 const Index = () => {
 
-  const games = [
-    { name: "God of War", genre: "Open-world", image: "/assets/samples/gow.jpg", platform: <SiSteam size={20} />, price: 550, originalPrice: 5000, quantity: 10 },
-    { name: "God of War", genre: "Open-world", image: "/assets/samples/gow.jpg", platform: <SiSteam size={20} />, price: 550, originalPrice: 5000, quantity: 10 },
-    { name: "God of War", genre: "Open-world", image: "/assets/samples/gow.jpg", platform: <SiSteam size={20} />, price: 550, originalPrice: 5000, quantity: 10 },
-    { name: "God of War", genre: "Open-world", image: "/assets/samples/gow.jpg", platform: <SiSteam size={20} />, price: 550, originalPrice: 5000, quantity: 10 },
-    { name: "God of War", genre: "Open-world", image: "/assets/samples/gow.jpg", platform: <SiSteam size={20} />, price: 550, originalPrice: 5000, quantity: 10 },
-    { name: "God of War", genre: "Open-world", image: "/assets/samples/gow.jpg", platform: <SiSteam size={20} />, price: 550, originalPrice: 5000, quantity: 10 },
-    { name: "God of War", genre: "Open-world", image: "/assets/samples/gow.jpg", platform: <SiSteam size={20} />, price: 550, originalPrice: 5000, quantity: 10 },
-    { name: "God of War", genre: "Open-world", image: "/assets/samples/gow.jpg", platform: <SiSteam size={20} />, price: 550, originalPrice: 5000, quantity: 10 },
-    { name: "God of War", genre: "Open-world", image: "/assets/samples/gow.jpg", platform: <SiSteam size={20} />, price: 550, originalPrice: 5000, quantity: 10 },
-    { name: "God of War", genre: "Open-world", image: "/assets/samples/gow.jpg", platform: <SiSteam size={20} />, price: 550, originalPrice: 5000, quantity: 10 },
-    { name: "God of War", genre: "Open-world", image: "/assets/samples/gow.jpg", platform: <SiSteam size={20} />, price: 550, originalPrice: 5000, quantity: 10 },
-    { name: "God of War", genre: "Open-world", image: "/assets/samples/gow.jpg", platform: <SiSteam size={20} />, price: 550, originalPrice: 5000, quantity: 10 },
-  ];
-
   return (
     <>
       <Navbar />
@@ -29,9 +15,9 @@ const Index = () => {
       <main className='shadow-2xl'>
         <div className='mb-5 giant'>Featured Games</div>
         <div className="grid sm:grid-cols-5 gap-10 grid-cols-2">
-          {games.map((data, index) => (
+          {/* {games.map((data, index) => (
             <Entry key={index} entry={data} id={index} />
-          ))}
+          ))} */}
         </div>
       </main>
       <div className="highlight-container">

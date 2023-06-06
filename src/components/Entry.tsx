@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import React from 'react'
 import PaymentOptions from './PaymentOptions';
-import { entryProps } from '@/schemas/EntrySchema';
+import { IGame } from '@/schemas/GameSchema';
 
-const Entry = ({entry, id}: {entry: entryProps, id: number}) => {
+const Entry = ({entry, id}: {entry: IGame, id: number}) => {
   return (
     <div className="w-full rounded-lg" id={`${id}`}>
         <div className='relative pl-1 sm:pl-5 pr-1 sm:pr-5'>
