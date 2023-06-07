@@ -55,6 +55,6 @@ export default async function handler(
         res.status(200).json({ "Error: ": err });
       });
   } else {
-    res.status(200).json({ result: "Invalid method" });
+    res.status(200).json({ result: "NOT_ALLOWED" });
   }
 }

@@ -1,45 +1,33 @@
-import { JSONData, modifiedJSONData } from "@/Details";
+import Connect from "@/connect";
 import GameModel from "@/schemas/GameSchema";
-import mongoose from "mongoose";
 import { NextApiRequest, NextApiResponse } from "next";
 
 type PostData = {
-  title: string;
-  image: string;
-  genre: string;
-  platform: string;
-  host: string;
-  price: string;
-  discounted: string;
-  quantity: string;
-  gamelist: JSONData[];
-};
+  reqType: string;
+}
 
-export default function handler(_req: NextApiRequest, _res: NextApiResponse) {
+export default async function handler(_req: NextApiRequest, _res: NextApiResponse) {
     if (_req.method === "POST") {
         const postData: PostData = _req.body;
         
-        const modifiedArray: modifiedJSONData[] = [];
-        postData.gamelist.map((game) => {
-            modifiedArray.push({
-                user: game.user,
-                password: game.password,
-                owned: "none"
-            });
-        })
-
-        const newGame = new GameModel({
-            _id: new mongoose.Types.ObjectId(),
-            name: postData.title,
-            image: postData.image,
-            genre: postData.genre,
-            platform: postData.platform,
-            host: postData.host,
-            price: parseInt(postData.price),
-            discounted: parseInt(postData.discounted),
-            quantity: parseInt(postData.quantity)
-        });
-
-        
+        if (postData.reqType === "GETGAMES") {
+            await Connect();
+            GameModel
+            .find({})
+            .sort({ tStamp: -1} )
+            .exec()
+            .then((docs) => {
+                _res.status(200).json({
+                    exists: true,
+                    gamelist: docs,
+                });
+            })
+            .catch((err) => {
+                _res.status(200).json({
+                    exists: false,
+                    err: err
+                });
+            })
+        }
     }
 }
