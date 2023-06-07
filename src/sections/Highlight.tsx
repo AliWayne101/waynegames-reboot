@@ -12,7 +12,7 @@ const Highlight = ({game, index}: {game: IGame, index: number}) => {
                     <div className='h-full sm:col-span-3 col-span-4 flex items-center'>
                         <div className="flex flex-col">
                             <h1 className="giant">Sale: unbeatable discount awaits!</h1><br />
-                            <h2 className="text-[var(--text-alert)] egiant">{((game.price - game.discounted) / game.price) * 100} % Off</h2>
+                            <h2 className="text-[var(--text-alert)] egiant">{parseInt((((game.price - game.discounted) / game.price) * 100).toString())}% Off</h2>
                             <h1 className="giant"><span className="line-through">{game.price}</span> <span className="egiant text-[var(--text-alert)]">{game.discounted}</span> Rupees</h1><br />
                             <div className="mt-10 mb-10 sm:mb-1">
                                 <Link href={`/#${index}`}>
