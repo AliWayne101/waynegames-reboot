@@ -42,7 +42,7 @@ const Index = () => {
       </main>
       <div className="highlight-container">
         <div className="inside-highlight shadow-2xl">
-          Unlock your gaming potential with affordable game accounts! Join our group of experts offering the best deals on game accounts at unbeatable prices. Level up your gaming experience today with our wide range of discounted game accounts. Don't miss out on the opportunity to save big on your favorite games. Get started now!
+          Unlock your gaming potential with affordable game accounts! Join our group of experts offering the best deals on game accounts at unbeatable prices. Level up your gaming experience today with our wide range of discounted game accounts. Don&apos;t miss out on the opportunity to save big on your favorite games. Get started now!
         </div>
       </div>
       <Footer />
