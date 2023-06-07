@@ -15,25 +15,27 @@ const Navbar = () => {
             <div className="pl-5 pt-2 pb-2 flex">
                 <div className='mr-10'> <Link href={'/'}> <Logo /> </Link></div>
             </div>
-            <div className="pr-5 pt-2 pb-2 flex mt-4">
+            <div className="pr-5 pt-2 pb-2 mt-4 flex">
                 {
                     session ? (
                         session.user && (
                             <>
-                                <Image
-                                    src={
-                                        session.user.image
-                                            ? session.user.image
-                                            : "https://i.ibb.co/2NdhGP1/Profile-avatar-placeholder-large.png"
-                                    }
-                                    height={40}
-                                    width={40}
-                                    className='rounded-full cursor-pointer'
-                                    alt='profile'
-                                    onClick={() => signOut()}
-                                    title='Sign out'
-                                />
-                                <Link href={'/admin'}>{session.user.name}</Link>
+                                <div className="relative inline-block">
+                                    <Image
+                                        src={
+                                            session.user.image
+                                                ? session.user.image
+                                                : "https://i.ibb.co/2NdhGP1/Profile-avatar-placeholder-large.png"
+                                        }
+                                        height={30}
+                                        width={30}
+                                        className='rounded-full cursor-pointer'
+                                        alt='profile'
+                                        onClick={() => signOut()}
+                                        title='Sign out'
+                                    />
+                                </div>
+                                <Link className='flex ml-2 tsize-small mt-1' href={'/admin'}>{session.user.name}</Link>
                             </>
                         )
                     ) : (
