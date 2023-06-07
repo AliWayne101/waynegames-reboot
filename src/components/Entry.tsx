@@ -26,7 +26,7 @@ const Entry = ({ entry, id }: { entry: IGame, id: number }) => {
         </div>
       </div>
       <div className="flex justify-between p-2 mb-5">
-        <div>{entry.platform === "PC" ? (<RiComputerFill size={20} className='mr-2' />) : entry.platform} {Icon(entry.host)}</div>
+        <div className='flex'>{entry.platform === "PC" ? (<RiComputerFill size={20} className='mr-2' />) : entry.platform} {Icon(entry.host)}</div>
         <div className='tsize-small flex'>Shop: &nbsp;<PaymentOptions size={20} /></div>
       </div>
     </div>
