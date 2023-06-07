@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Button from '@/components/Button'
 import { IGame } from '@/schemas/GameSchema'
 
-const Highlight = ({game, index}: {game: IGame, index: number}) => {
+const Highlight = ({game, gamelist}: {game: IGame, gamelist: IGame[]}) => {
+    const [gameIndex, setGameIndex] = useState(gamelist.indexOf(game));
+
+    useEffect(() => {
+        gamelist.map((_Game, index) => {
+            if (_Game.name === game.name)
+                setGameIndex(index);
+        })
+    }, [game])
+
     return (
         <div className="highlight-container">
             <div className="inside-highlight shadow-2xl py-5p">
@@ -16,7 +25,7 @@ const Highlight = ({game, index}: {game: IGame, index: number}) => {
                             <h1 className="egiant text-[var(--text-alert)] mt-2">{game.name}</h1>
                             <h1 className="giant"><span className="line-through">{game.price}</span> <span className="egiant text-[var(--text-alert)]">{game.discounted}</span> Rupees</h1><br />
                             <div className="mt-10 mb-10 sm:mb-1">
-                                <Link href={`/#${index}`}>
+                                <Link href={`/#${gameIndex}`}>
                                     <Button sizeClass={'giant'} text={'Purchase Now!'} />
                                 </Link>
                             </div>

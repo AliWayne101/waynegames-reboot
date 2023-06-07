@@ -32,7 +32,6 @@ const Index = () => {
       .then((response) => {
         if (response.data.exists === true) {
           setHighlightedGame(response.data.gamelist);
-          console.log(response.data.gamelist);
         } else {
           console.log(response.data.err);
         }
@@ -45,9 +44,11 @@ const Index = () => {
   return (
     <>
       <Navbar />
-      {highlightedGame !== null && (
-        <Highlight game={highlightedGame} index={games.indexOf(highlightedGame)} />
-      )}
+      {games &&
+        highlightedGame !== null && (
+          <Highlight game={highlightedGame} gamelist={games} />
+        )
+      }
       <main className='shadow-2xl'>
         <div className='mb-5 giant'>Featured Games</div>
         <div className="grid sm:grid-cols-5 gap-10 grid-cols-2">
