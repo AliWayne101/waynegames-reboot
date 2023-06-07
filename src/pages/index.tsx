@@ -5,7 +5,6 @@ import Highlight from '@/sections/Highlight';
 import Navbar from '@/sections/Navbar'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { SiUbisoft, SiEpicgames, SiSteam } from 'react-icons/si'
 
 const Index = () => {
   const [games, setGames] = useState<IGame[]>([]);

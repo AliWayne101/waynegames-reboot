@@ -36,8 +36,9 @@ const Navbar = () => {
                             className='rounded-full'
                             alt='profile'
                             onClick={() => signOut()}
+                            title='Sign out'
                         />
-                        {session.user.name}
+                        <Link href={'/admin'}>{session.user.name}</Link>
                         </> 
                     )
                 ) : (

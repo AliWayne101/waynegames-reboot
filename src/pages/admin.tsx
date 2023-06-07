@@ -2,8 +2,15 @@ import Button from '@/components/Button'
 import Footer from '@/sections/Footer'
 import Navbar from '@/sections/Navbar'
 import React, { useEffect, useState } from 'react'
-import { JSONData } from '@/Details'
+import { JSONData, Superusers } from '@/Details'
 import axios from 'axios'
+import { GetServerSideProps } from 'next'
+import { getSession } from 'next-auth/react'
+
+
+interface AdminProps {
+    email: string,
+}
 
 const Admin = () => {
 
@@ -167,4 +174,47 @@ const Admin = () => {
     )
 }
 
-export default Admin
+export default Admin;
+
+export const getServerSideProps: GetServerSideProps<AdminProps> = async(context) => {
+    const session = await getSession(context);
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            },
+            props: {}
+        }
+    }
+
+    let userEmail = "null";
+
+    if (session && session.user) {
+        try {
+            Superusers.map((user) => {
+                if (user.email === session.user?.email)
+                    userEmail = session.user.email;
+            })
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    if (userEmail === null) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            },
+            props: {}
+        }
+    }
+
+    return {
+        props: {
+            email: userEmail
+        }
+    }
+}
