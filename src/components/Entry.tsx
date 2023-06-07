@@ -19,7 +19,7 @@ const Entry = ({ entry, id }: { entry: IGame, id: number }) => {
             entry.price
           ) : (
             <>
-              <span className="line-through mr-1">{entry.price}</span> {entry.discounted}
+              <span className="line-through mr-1">{entry.price}</span> <span className="mr-1">{entry.discounted}</span>
             </>
           )}
           Rupees
