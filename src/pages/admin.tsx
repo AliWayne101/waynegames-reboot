@@ -34,6 +34,9 @@ const Admin = () => {
     const [jsonData, setJsonData] = useState<JSONData[]>([]);
 
     const updateEntry = (e: HTMLInputElement | HTMLSelectElement) => {
+        if (e.name === "host")
+            console.log(e.value);
+
         setEntryData({
             ...entryData, [e.name]: e.value
         });

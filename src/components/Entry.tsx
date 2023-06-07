@@ -2,6 +2,8 @@ import Image from 'next/image';
 import React from 'react'
 import PaymentOptions from './PaymentOptions';
 import { IGame } from '@/schemas/GameSchema';
+import { RiComputerFill } from 'react-icons/ri';
+import { SiSteam, SiUbisoft, SiEpicgames } from 'react-icons/si';
 
 const Entry = ({entry, id}: {entry: IGame, id: number}) => {
   return (
@@ -15,11 +17,33 @@ const Entry = ({entry, id}: {entry: IGame, id: number}) => {
             <div>{entry.price} Rupees</div>
         </div>
         <div className="flex justify-between p-2 mb-5">
-            <div>{entry.platform}</div>
+            <div>{entry.platform === "PC" && (<RiComputerFill size={20} className='mr-2' />)} { Icon(entry.host) }</div>
             <div className='tsize-small flex'>Shop: &nbsp;<PaymentOptions size={20} /></div>
         </div>
     </div>
   )
+}
+
+const Icon = (_host: string) => {
+  var ICON = null;
+  switch (_host) {
+    case "STEAM":
+      ICON = <SiSteam size={22} />
+      break;
+    case "EPIC":
+      ICON = <SiEpicgames size={22} />
+      break;
+    case "UBISOFT":
+      ICON = <SiUbisoft size={22} />
+      break;
+    case "GOG":
+      ICON = "GOG";
+      break;
+    default: 
+      ICON = "NULL";
+      break;
+  }
+  return ICON;
 }
 
 export default Entry
