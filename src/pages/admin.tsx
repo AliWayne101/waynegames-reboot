@@ -6,6 +6,7 @@ import { JSONData, Superusers } from '@/Details'
 import axios from 'axios'
 import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 
 interface AdminProps {
@@ -13,6 +14,8 @@ interface AdminProps {
 }
 
 const Admin = () => {
+
+    const router = useRouter();
 
     const [entryData, setEntryData] = useState({
         title: "",
@@ -102,8 +105,9 @@ const Admin = () => {
                 ...entryData
             })
             .then((response) => {
-                console.log('response');
                 console.log(response.data);
+                if (response.data.created)
+                    router.push('/');
             })
             .catch(console.log);
         if (isUploaded) {
@@ -163,9 +167,8 @@ const Admin = () => {
                     <span>Game Data JSON:</span>
                     <input type="file" name="gameData" className="bg-transparent w-[100%] sm:w-[50%] p-2 firaCode border border-1 block" onChange={readJSON} />
                 </div>
-                <span className='mt-5 block' onClick={() => uploadGames()}><Button sizeClass={'tsize-small'} text={'Add game'} /></span>
                 {isUploaded && (
-                    <span className='mt-5 block'><Button sizeClass={'tsize-small'} text={'Add game'} /></span>
+                    <span className='mt-5 block' onClick={() => uploadGames()}><Button sizeClass={'tsize-small'} text={'Add game'} /></span>
                 )}
             </div>
 
