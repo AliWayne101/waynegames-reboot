@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react'
 
 const Index = () => {
   const [games, setGames] = useState<IGame[]>([]);
+  const [highlightedGame, setHighlightedGame] = useState<IGame | null>(null);
 
   useEffect(() => {
     axios
@@ -24,12 +25,29 @@ const Index = () => {
       .catch((err) => {
         console.log(err);
       })
+    axios
+      .post("/api/getgames", {
+        reqType: "DISCOUNTEDGAME"
+      })
+      .then((response) => {
+        if (response.data.exists === true) {
+          setHighlightedGame(response.data.gamelist);
+          console.log(response.data.gamelist);
+        } else {
+          console.log(response.data.err);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }, []);
 
   return (
     <>
       <Navbar />
-      <Highlight />
+      {highlightedGame !== null && (
+        <Highlight game={highlightedGame} index={games.indexOf(highlightedGame)} />
+      )}
       <main className='shadow-2xl'>
         <div className='mb-5 giant'>Featured Games</div>
         <div className="grid sm:grid-cols-5 gap-10 grid-cols-2">

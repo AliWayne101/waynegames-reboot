@@ -6,10 +6,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 
 const Navbar = () => {
-
     const { data: session } = useSession();
-    console.log(session);
-
     return (
         <div className="sticky top-0 flex justify-between bg-secondary tsize-menu mb-5 z-10 blur-nav">
             <div className="pl-5 pt-2 pb-2 flex">
