@@ -58,16 +58,7 @@ export default async function handler(
             res.status(200).json({ updated: false, err: "NO_ENTRIES" });
             return;
         }
-
-
-        //Complete it 
-        const updated = await TokenModel.findOneAndUpdate(
-          { tokenID: inData.token },
-          {
-            claimedOn: Date.now
-          }
-        )
-
+        
         const updatedGame = Game.gamelist.find((game) => game.owned === inData.email)
         res.status(200).json({ updated: true, doc: updatedGame, title: Game.name});
     }

@@ -6,8 +6,9 @@ import Footer from '@/sections/Footer';
 import Navbar from '@/sections/Navbar';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
+import { useSession } from 'next-auth/react';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Props {
   gameID: string;
@@ -18,13 +19,14 @@ interface Params extends ParsedUrlQuery {
 }
 
 const Index = ({ gameID }: Props) => {
-  console.log(gameID);
+
+  const { data: session } = useSession();
 
   const [email, setEmail] = useState("");
   const [gameDetails, setGameDetails] = useState<modifiedJSONData | null>(null);
   const [gameTitle, setGameTitle] = useState("");
   const [isError, setIsError] = useState(false);
-
+  const [isLogged, setIsLogged] = useState(false);
   const getGameDetails = () => {
     axios
       .post('/api/tokens', {
@@ -42,6 +44,15 @@ const Index = ({ gameID }: Props) => {
       .catch(console.log);
   }
 
+  useEffect(() => {
+    if (session) {
+      if (session.user) {
+        setIsLogged(true);
+        setEmail(session.user.email!);
+      }
+    }
+  }, [session]);
+
   return (
     <>
       <Navbar />
@@ -51,12 +62,17 @@ const Index = ({ gameID }: Props) => {
           gameDetails === null ? (
             <>
               <div className="text-center mt-2">
-                <div className="w-full text-center">
-                  Email <span className="tsize-small text-[var(--text-alert)]">Please provide valid email address</span>
-                </div>
-                <div className='w-full flex justify-center'>
-                  <input type="email" name="email" className="bg-transparent w-full sm:w-[50%] p-2 firaCode border border-1 block" onChange={(e) => { setEmail(e.target.value) }} />
-                </div>
+                {isLogged === false && (
+                  <>
+                    <div className="w-full text-center">
+                      Email <span className="tsize-small text-[var(--text-alert)]">Please provide valid email address</span>
+                    </div>
+                    <div className='w-full flex justify-center'>
+                      <input type="email" name="email" className="bg-transparent w-full sm:w-[50%] p-2 firaCode border border-1 block" onChange={(e) => { setEmail(e.target.value) }} />
+                    </div>
+                  </>
+                )}
+
                 <div className='w-full'>
                   <span className="mt-5 block" onClick={() => { getGameDetails() }}><Button sizeClass='tsize-small' text='Activate' /></span>
                 </div>
@@ -112,7 +128,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({ pa
 
     const token = await TokenModel.findOneAndUpdate(
       { tokenID: pid },
-      { visited: true }
+      { visited: true, claimedOn: Date.now }
     );
     if (!token) {
       return {
