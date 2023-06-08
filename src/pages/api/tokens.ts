@@ -12,10 +12,10 @@ interface postData {
 }
 
 interface verifyGame {
-    gameID: string;
-    email: string;
-    reqType: string;
-    token: string;
+  gameID: string;
+  email: string;
+  reqType: string;
+  token: string;
 }
 
 export default async function handler(
@@ -47,20 +47,24 @@ export default async function handler(
         res.status(200).json({ created: false, name: PostData.title });
       }
     } else if (PostData.reqType === "ACTIVATE") {
-        const inData: verifyGame = req.body;
-        const Game = await GameModel.findOneAndUpdate(
-            { _id: inData.gameID, 'gamelist.owned': 'none' },
-            { $set: { 'gamelist.$.owned': inData.email }, $inc: { quantity: -1 }},
-            { new: true }
-        );
+      const inData: verifyGame = req.body;
+      const Game = await GameModel.findOneAndUpdate(
+        { _id: inData.gameID, "gamelist.owned": "none" },
+        { $set: { "gamelist.$.owned": inData.email }, $inc: { quantity: -1 } },
+        { new: true }
+      );
 
-        if (!Game) {
-            res.status(200).json({ updated: false, err: "NO_ENTRIES" });
-            return;
-        }
-        
-        const updatedGame = Game.gamelist.find((game) => game.owned === inData.email)
-        res.status(200).json({ updated: true, doc: updatedGame, title: Game.name});
+      if (!Game) {
+        res.status(200).json({ updated: false, err: "NO_ENTRIES" });
+        return;
+      }
+
+      const updatedGame = Game.gamelist.find(
+        (game) => game.owned === inData.email
+      );
+      res
+        .status(200)
+        .json({ updated: true, doc: updatedGame, title: Game.name });
     }
   }
 }

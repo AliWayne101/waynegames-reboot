@@ -20,6 +20,8 @@ interface Params extends ParsedUrlQuery {
 
 const Index = ({ gameID }: Props) => {
 
+  //Add timeout for request, else let it be
+
   const { data: session } = useSession();
 
   const [email, setEmail] = useState("");
@@ -138,8 +140,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({ pa
 
     return {
       props: {
-        gameID: token.gameID.toString(),
-        token: token.tokenID
+        gameID: token.gameID.toString()
       }
     }
   } catch (err) {
