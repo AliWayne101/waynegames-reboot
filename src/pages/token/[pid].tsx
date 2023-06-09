@@ -134,7 +134,7 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({ pa
 
     const token = await TokenModel.findOneAndUpdate(
       { tokenID: pid },
-      { visited: true, claimedOn: Date.now }
+      { visited: true, claimedOn: Date.now() }
     );
     if (!token) {
       return {
