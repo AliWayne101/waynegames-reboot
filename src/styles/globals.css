@@ -65,6 +65,13 @@ main {
   transition: 0.3s ease-in-out;
 }
 
+.previewImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  position: relative !important;
+}
+
 .entryImage:hover {
   transform: scale(1.1);
 }

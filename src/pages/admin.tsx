@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { IGame } from '@/schemas/GameSchema'
 
 
-interface AdminProps {
+export interface AdminProps {
     email: string,
 }
 

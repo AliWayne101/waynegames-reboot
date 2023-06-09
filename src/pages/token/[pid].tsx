@@ -60,7 +60,7 @@ const Index = ({ gameID }: Props) => {
     <>
       <Navbar />
       <main className='shadow-2xl'>
-        <h1 className="egiant mt-5">Activate your game</h1>
+        <h1 className="egiant mt-5 mb-10">Activate your game</h1>
         {isError === false ? (
           gameDetails === null ? (
             <>
