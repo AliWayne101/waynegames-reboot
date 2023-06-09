@@ -7,6 +7,7 @@ import Navbar from '@/sections/Navbar';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect, useState } from 'react'
 
@@ -91,6 +92,9 @@ const Index = ({ gameID }: Props) => {
                 <div>{gameDetails.user}</div>
                 <div className='text-center'>Password: </div>
                 <div>{gameDetails.password}</div>
+              </div>
+              <div className="text-center mt-5">
+                Go to <Link className='link' href={'/profile'}>Profile</Link>
               </div>
               <div className="text-center mt-10">
                 Please change <b>Email</b> & <b>Password</b> immediatly after logging into your account. <u>We are <b>NOT</b> responsible if you lose your account after getting the information</u>
