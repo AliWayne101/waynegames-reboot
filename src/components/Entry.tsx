@@ -16,7 +16,7 @@ const Entry = ({ entry, id }: { entry: IGame, id: number }) => {
         <div>{entry.genre}</div>
         <div>
           {entry.discounted === 0 ? (
-            entry.price
+            <span className="mr-1">{entry.price}</span>
           ) : (
             <>
               <span className="line-through mr-1">{entry.price}</span> <span className="mr-1">{entry.discounted}</span>
