@@ -43,13 +43,19 @@ export default async function handler(_req: NextApiRequest, _res: NextApiRespons
             .sort({
                 tStamp: -1
             })
-            .limit(1)
             .exec()
             .then((docs) => {
                 if (docs.length > 0) {
+                    var randomNumber = 0;
+                    if (docs.length > 1)
+                        randomNumber = Math.floor(Math.random() * (docs.length));
+
+                    console.log(docs.length);
+                    console.log(randomNumber);
+                    const selectedGame = docs[randomNumber];
                     _res.status(200).json({
                         exists: true,
-                        gamelist: docs[0],
+                        gamelist: selectedGame,
                     });
                 } else {
                     _res.status(200).json({
