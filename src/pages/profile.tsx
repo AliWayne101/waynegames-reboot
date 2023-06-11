@@ -88,7 +88,7 @@ const Profile = ({ email }: AdminProps) => {
                                             {gameList.map((game, index) => (
                                                 <div className="w-full cursor-pointer" key={index} onClick={() => { setSelectedGame(game) }}>
                                                     <div className="p-5">
-                                                        <Image src={game.image} alt={game.title} className='entryImage rounded shadow-2xl' fill />
+                                                        <Image src={game.image} alt={game.title} className='entryImage height-auto rounded shadow-2xl' fill />
                                                     </div>
                                                     <div className="text-center tsize-small">{game.title}</div>
                                                 </div>

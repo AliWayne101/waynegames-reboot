@@ -59,10 +59,17 @@ main {
 
 .entryImage {
   width: 100% !important;
-  height: 400px !important;
   object-fit: cover !important;
   position: relative !important;
   transition: 0.3s ease-in-out;
+}
+
+.height-fixed {
+  height: 400px !important;
+}
+
+.height-auto {
+  height: auto !important;
 }
 
 .previewImage {
