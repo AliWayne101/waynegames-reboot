@@ -40,6 +40,7 @@ export default async function handler(
           price:
             Games[0].discounted !== 0 ? Games[0].discounted : Games[0].price,
           tokenID: tokenID,
+          visisted: false,
         });
         const savedDocument = await Token.save();
         res.status(200).json({ created: true, doc: savedDocument });
