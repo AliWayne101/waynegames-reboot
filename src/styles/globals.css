@@ -59,7 +59,7 @@ main {
 
 .entryImage {
   width: 100% !important;
-  height: auto !important;
+  height: 400px !important;
   object-fit: cover !important;
   position: relative !important;
   transition: 0.3s ease-in-out;

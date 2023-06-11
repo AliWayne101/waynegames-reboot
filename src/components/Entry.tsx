@@ -37,13 +37,13 @@ const Icon = (_host: string) => {
   var ICON = null;
   switch (_host) {
     case "STEAM":
-      ICON = <SiSteam size={22} />
+      ICON = <SiSteam size={20} />
       break;
     case "EPIC":
-      ICON = <SiEpicgames size={22} />
+      ICON = <SiEpicgames size={20} />
       break;
     case "UBISOFT":
-      ICON = <SiUbisoft size={22} />
+      ICON = <SiUbisoft size={20} />
       break;
     case "GOG":
       ICON = "GOG";

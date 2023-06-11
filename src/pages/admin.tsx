@@ -93,7 +93,6 @@ const Admin = ({email}: AdminProps) => {
                                 quantity: parsedData.length,
                                 gameData: parsedData
                             });
-
                             console.log('GameData: ');
                             console.log(entryData.gameData);
                         }

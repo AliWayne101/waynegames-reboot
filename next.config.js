@@ -4,6 +4,7 @@ const nextConfig = {
   images: {
     domains: ["i.ibb.co", "avatars.githubusercontent.com"],
   },
+
   async rewrites() {
     return [
       {
