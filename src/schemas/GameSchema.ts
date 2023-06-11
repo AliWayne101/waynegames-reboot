@@ -13,6 +13,7 @@ export interface IGame extends Document {
   tstamp: Date;
   gamelist: modifiedJSONData[];
   uploadedBy: string;
+  bgImage: string;
 }
 
 const GameSchema = new Schema<IGame>({
@@ -37,6 +38,7 @@ const GameSchema = new Schema<IGame>({
     default: [],
   },
   uploadedBy: String,
+  bgImage: String,
 });
 
 let GameModel: mongoose.Model<IGame>;

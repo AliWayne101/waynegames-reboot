@@ -14,6 +14,8 @@ type postData = {
   discounted: number;
   quantity: number;
   gameData: JSONData[];
+  uploadedBy: string;
+  bgImage: string;
 };
 
 export default async function handler(
@@ -43,6 +45,8 @@ export default async function handler(
       discounted: PostData.discounted,
       quantity: PostData.quantity,
       gamelist: modifiedArray,
+      uploadedBy: PostData.uploadedBy,
+      bgImage: PostData.bgImage,
     });
 
     await Connect();

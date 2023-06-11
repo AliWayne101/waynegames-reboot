@@ -14,7 +14,7 @@ export interface AdminProps {
     userEmail: string,
 }
 
-const Admin = ({userEmail}: AdminProps) => {
+const Admin = ({ userEmail }: AdminProps) => {
 
     const router = useRouter();
     const [entryData, setEntryData] = useState({
@@ -27,7 +27,8 @@ const Admin = ({userEmail}: AdminProps) => {
         discounted: 0,
         quantity: 0,
         gameData: [] as JSONData[],
-        uploadedBy: userEmail
+        uploadedBy: userEmail,
+        bgImage: "",
     });
 
     const [generateEntry, setGenerateEntry] = useState({
@@ -35,9 +36,9 @@ const Admin = ({userEmail}: AdminProps) => {
         email: "",
     });
 
-    const [_photo, set_photo] = useState<File | null>();
+    const [isError, setIsError] = useState("null");
+
     const [isUploaded, setIsUploaded] = useState(false);
-    const [jsonData, setJsonData] = useState<JSONData[]>([]);
     const [showForm, setShowForm] = useState(true);
     const [showLoading, setShowLoading] = useState(false);
     const [gameList, setGameList] = useState<IGame[]>([]);
@@ -87,7 +88,6 @@ const Admin = ({userEmail}: AdminProps) => {
                     try {
                         if (e.target) {
                             const parsedData = JSON.parse(e.target.result as string) as JSONData[];
-                            setJsonData(parsedData);
                             setEntryData({
                                 ...entryData,
                                 quantity: parsedData.length,
@@ -95,9 +95,13 @@ const Admin = ({userEmail}: AdminProps) => {
                             });
                             console.log('GameData: ');
                             console.log(entryData.gameData);
+                            if (parsedData.length === 0) {
+                                setIsError("Invalid JSON Data..");
+                            }
                         }
                     } catch (ex) {
                         console.log(`Error parsing: ${ex}`);
+                        setIsError('Unable to parse the JSON Data');
                     }
                 }
                 reader.readAsText(file);
@@ -107,14 +111,11 @@ const Admin = ({userEmail}: AdminProps) => {
 
     const photoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.currentTarget.files;
-        if (files && files[0])
-            set_photo(files[0]);
-    }
-
-    useEffect(() => {
-        if (_photo) {
+        if (files && files[0]) {
+            console.log(files[0]);
             const formData = new FormData();
-            formData.append('image', _photo);
+            var imageFile = files[0] as File;
+            formData.append('image', imageFile);
             axios.post('/imgbb/1/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -126,14 +127,15 @@ const Admin = ({userEmail}: AdminProps) => {
                 .then((response) => {
                     setIsUploaded(true);
                     setEntryData({
-                        ...entryData, image: response.data.data.url
+                        ...entryData, [e.target.name]: response.data.data.url
                     });
                 })
                 .catch((err) => {
-                    console.log(err);
+                    console.log(`Error has been detected: ${err}`);
+                    setIsError(err);
                 });
         }
-    }, [_photo]);
+    }
 
     const uploadGames = () => {
         axios
@@ -184,7 +186,11 @@ const Admin = ({userEmail}: AdminProps) => {
                         </div>
                         <div className="mt-5">
                             <span>Game Poster Image:</span>
-                            <input type="file" name="posterFile" id="posterFile" className="bg-transparent w-[100%] sm:w-[50%] p-2 firaCode border border-1 block" onChange={photoUpload} />
+                            <input type="file" name="image" id="image" className="bg-transparent w-[100%] sm:w-[50%] p-2 firaCode border border-1 block" onChange={photoUpload} />
+                        </div>
+                        <div className="mt-5">
+                            <span>Game Background Image:</span>
+                            <input type="file" name="bgImage" id="bgImage" className="bg-transparent w-[100%] sm:w-[50%] p-2 firaCode border border-1 block" onChange={photoUpload} />
                         </div>
                         <div className="mt-5">
                             <span>Game Genre: </span>
@@ -217,7 +223,11 @@ const Admin = ({userEmail}: AdminProps) => {
                             <input type="file" name="gameData" className="bg-transparent w-[100%] sm:w-[50%] p-2 firaCode border border-1 block" onChange={readJSON} />
                         </div>
                         {isUploaded && (
-                            <span className='mt-5 block' onClick={() => uploadGames()}><Button sizeClass={'tsize-small'} text={'Add game'} /></span>
+                            isError === "null" ? (
+                                <span className='mt-5 block' onClick={() => uploadGames()}><Button sizeClass={'tsize-small'} text={'Add game'} /></span>
+                            ) : (
+                                <span className="mt-5 block text-[var(--text-alert)]">{isError.toString()}</span>
+                            )
                         )}
                     </>
                 ) : (
@@ -225,25 +235,25 @@ const Admin = ({userEmail}: AdminProps) => {
                         <div className="w-full text-center mt-5">Link has been generated <br /> Link: {webDetails.address}/token/{isGenerated}</div>
                     ) : (
                         <>
-                        <div className="mt-5">
-                            <span>Game Title</span>
-                            {showLoading === false && (
-                                <select name="title" id="title" className='bg-transparent w-full sm:w-[50%] p-2 firaCode border border-1 block' onChange={(e) => genEntry(e.currentTarget)}>
-                                    <option value="" className="text-black"></option>
-                                    {gameList.map((game, index) => (
-                                        <option value={game.name} className="text-black" key={index}>{game.name}</option>
-                                    ))}
-                                </select>
-                            )}
-                        </div>
-                        <div className="mt-5">
-                            <span>Email Address: </span>
-                            <input type="email" name="email" className="bg-transparent w-full sm:w-[50%] p-2 firaCode border border-1 block" onChange={(e) => genEntry(e.currentTarget)} />
-                        </div>
-                        <span className="mt-5 block" onClick={() => GenerateLink()}><Button sizeClass='tsize-small' text='Generate Link' /></span>
-                    </>
+                            <div className="mt-5">
+                                <span>Game Title</span>
+                                {showLoading === false && (
+                                    <select name="title" id="title" className='bg-transparent w-full sm:w-[50%] p-2 firaCode border border-1 block' onChange={(e) => genEntry(e.currentTarget)}>
+                                        <option value="" className="text-black"></option>
+                                        {gameList.map((game, index) => (
+                                            <option value={game.name} className="text-black" key={index}>{game.name}</option>
+                                        ))}
+                                    </select>
+                                )}
+                            </div>
+                            <div className="mt-5">
+                                <span>Email Address: </span>
+                                <input type="email" name="email" className="bg-transparent w-full sm:w-[50%] p-2 firaCode border border-1 block" onChange={(e) => genEntry(e.currentTarget)} />
+                            </div>
+                            <span className="mt-5 block" onClick={() => GenerateLink()}><Button sizeClass='tsize-small' text='Generate Link' /></span>
+                        </>
                     )
-                    
+
                 )}
 
 
