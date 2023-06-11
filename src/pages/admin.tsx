@@ -116,7 +116,7 @@ const Admin = ({email}: AdminProps) => {
         if (_photo) {
             const formData = new FormData();
             formData.append('image', _photo);
-            axios.post('https://api.imgbb.com/1/upload', formData, {
+            axios.post('/imgbb/1/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
