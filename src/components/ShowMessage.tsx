@@ -8,12 +8,14 @@ interface MessageProps {
 
 const ShowMessage: React.FC<MessageProps> = ({ Ico, Text }) => {
     return (
-        <>
-            <div className="mt-10 mb-10 text-center">
-                {<Ico size={48} />}
+        <div className="mt-10 mb-10">
+            <div className="flex items-center justify-center">
+                {<Ico size={96} />}
+            </div>
+            <div className="text-center">
                 {Text}
             </div>
-        </>
+        </div>
     )
 }
 

@@ -12,7 +12,7 @@ const Entry = ({ entry, id }: { entry: IGame, id: number }) => {
         <Image src={entry.image} alt={entry.name} fill className='entryImage rounded-lg shadow-2xl' />
       </div>
       <div className="tsize-gtitle p-2 pt-5">{entry.name}</div>
-      <div className="flex justify-between p-2 tsize-small">
+      <div className="flex flex-wrap sm:justify-between p-2 tsize-small">
         <div>{entry.genre}</div>
         <div>
           {entry.discounted === 0 ? (
@@ -25,7 +25,7 @@ const Entry = ({ entry, id }: { entry: IGame, id: number }) => {
           Rupees
         </div>
       </div>
-      <div className="flex justify-between p-2 mb-5">
+      <div className="flex flex-wrap sm:justify-between p-2 mb-5">
         <div className='flex'>{entry.platform === "PC" ? (<RiComputerFill size={20} className='mr-2' />) : entry.platform} {Icon(entry.host)}</div>
         <div className='tsize-small flex'>Shop: &nbsp;<PaymentOptions size={20} /></div>
       </div>
