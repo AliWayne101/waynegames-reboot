@@ -11,10 +11,10 @@ import { IGame } from '@/schemas/GameSchema'
 
 
 export interface AdminProps {
-    email: string,
+    userEmail: string,
 }
 
-const Admin = ({email}: AdminProps) => {
+const Admin = ({userEmail}: AdminProps) => {
 
     const router = useRouter();
     const [entryData, setEntryData] = useState({
@@ -27,7 +27,7 @@ const Admin = ({email}: AdminProps) => {
         discounted: 0,
         quantity: 0,
         gameData: [] as JSONData[],
-        uploadedBy: email
+        uploadedBy: userEmail
     });
 
     const [generateEntry, setGenerateEntry] = useState({
@@ -294,7 +294,7 @@ export const getServerSideProps: GetServerSideProps<AdminProps> = async (context
 
     return {
         props: {
-            email: userEmail
+            userEmail
         }
     }
 }

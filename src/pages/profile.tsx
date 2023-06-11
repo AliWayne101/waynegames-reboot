@@ -13,7 +13,7 @@ import Link from 'next/link'
 import ShowMessage from '@/components/ShowMessage'
 import { TbError404 } from 'react-icons/tb'
 
-const Profile = ({ email }: AdminProps) => {
+const Profile = ({ userEmail }: AdminProps) => {
     const router = useRouter();
     const [gameList, setGameList] = useState<gameProfileData[]>([]);
     const [selectedGame, setSelectedGame] = useState<gameProfileData | undefined>(undefined);
@@ -24,7 +24,7 @@ const Profile = ({ email }: AdminProps) => {
         axios
             .post('/api/getgames', {
                 reqType: "GETUSERGAMES",
-                targetMail: email
+                targetMail: userEmail
             })
             .then((response) => {
                 setGameLoading(false);
@@ -39,10 +39,10 @@ const Profile = ({ email }: AdminProps) => {
                 router.push('/');
             });
 
-        const isFound = Superusers.find((email) => email === email);
+        const isFound = Superusers.find(({ email }) => email === userEmail);
         if (isFound !== undefined)
             setIsAdmin(true);
-    }, [email]);
+    }, [userEmail]);
 
     return (
         <>
@@ -136,7 +136,7 @@ export const getServerSideProps: GetServerSideProps<AdminProps> = async (context
 
     return {
         props: {
-            email: session.user.email!
+            userEmail: session.user.email!
         }
     }
 }
