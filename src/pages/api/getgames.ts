@@ -50,8 +50,6 @@ export default async function handler(_req: NextApiRequest, _res: NextApiRespons
                     if (docs.length > 1)
                         randomNumber = Math.floor(Math.random() * (docs.length));
 
-                    console.log(docs.length);
-                    console.log(randomNumber);
                     const selectedGame = docs[randomNumber];
                     _res.status(200).json({
                         exists: true,
