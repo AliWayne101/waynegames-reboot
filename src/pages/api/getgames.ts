@@ -18,7 +18,9 @@ export default async function handler(_req: NextApiRequest, _res: NextApiRespons
         await Connect();
         if (postData.reqType === "GETGAMES") {
             GameModel
-            .find({})
+            .find({
+                quantity: { $gt: 0 }
+            })
             .sort({ tStamp: -1} )
             .exec()
             .then((docs) => {

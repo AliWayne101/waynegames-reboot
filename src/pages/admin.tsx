@@ -17,12 +17,6 @@ export interface AdminProps {
 const Admin = ({email}: AdminProps) => {
 
     const router = useRouter();
-
-    useEffect(() => {
-        if (email === "null")
-            router.push('/');
-    }, [email])
-
     const [entryData, setEntryData] = useState({
         title: "",
         image: "",
@@ -32,7 +26,8 @@ const Admin = ({email}: AdminProps) => {
         price: 0,
         discounted: 0,
         quantity: 0,
-        gameData: [] as JSONData[]
+        gameData: [] as JSONData[],
+        uploadedBy: email
     });
 
     const [generateEntry, setGenerateEntry] = useState({
@@ -203,6 +198,7 @@ const Admin = ({email}: AdminProps) => {
                         <div className="mt-5">
                             <span>Game Host: </span>
                             <select name="host" id="host" className='bg-transparent w-[100%] sm:w-[50%] p-2 firaCode border border-1 block' onChange={(e) => updateEntry(e.currentTarget)}>
+                                <option value="STEAM" className='text-black'>SELECT HOST</option>
                                 <option value="STEAM" className='text-black'>STEAM</option>
                                 <option value="EPIC" className='text-black'>EPIC</option>
                                 <option value="UBISOFT" className='text-black'>UBISOFT</option>
@@ -287,7 +283,7 @@ export const getServerSideProps: GetServerSideProps<AdminProps> = async (context
         }
     }
 
-    if (userEmail === null) {
+    if (userEmail === "null") {
         return {
             redirect: {
                 destination: '/',
