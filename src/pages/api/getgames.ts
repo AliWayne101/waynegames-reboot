@@ -1,9 +1,15 @@
+import { gameProfileData, modifiedJSONData } from "@/Details";
 import Connect from "@/connect";
 import GameModel from "@/schemas/GameSchema";
 import { NextApiRequest, NextApiResponse } from "next";
 
 type PostData = {
   reqType: string;
+}
+
+type getUser = {
+    reqType: string;
+    targetMail: string;
 }
 
 export default async function handler(_req: NextApiRequest, _res: NextApiResponse) {
@@ -57,7 +63,26 @@ export default async function handler(_req: NextApiRequest, _res: NextApiRespons
                 });
             })
         } else if (postData.reqType === "GETUSERGAMES") {
+            const reqBody: getUser = _req.body;
+            
+            const Games = await GameModel.find({
+                "gamelist.owned": reqBody.targetMail
+            }).select("name image gamelist");
 
+            const gameData: gameProfileData[] = [];
+            Games.forEach((game) => {
+                const targetedUser = game.gamelist.find(( { owned } ) => owned === reqBody.targetMail);
+                gameData.push({
+                    title: game.name,
+                    image: game.image,
+                    owned: targetedUser ? targetedUser : { user: "", password: "", owned: "" }
+                });
+            });
+
+            _res.status(200).json({
+                exists: true,
+                docs: gameData
+            });
         }
     }
 }

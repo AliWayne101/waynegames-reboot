@@ -9,6 +9,12 @@ export interface modifiedJSONData {
   owned: string;
 }
 
+export interface gameProfileData {
+  title: string;
+  image: string;
+  owned: modifiedJSONData;
+}
+
 export const Superusers = [
   { email: "alimalikwayne@gmail.com" },
   { email: "bhninjayt@gmail.com" },

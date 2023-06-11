@@ -28,11 +28,10 @@ const Navbar = () => {
                                         width={30}
                                         className='rounded-full cursor-pointer'
                                         alt='profile'
-                                        onClick={() => signOut()}
                                         title='Sign out'
                                     />
                                 </div>
-                                <Link className='flex ml-2 tsize-small mt-1' href={'/admin'}>{session.user.name}</Link>
+                                <Link className='flex ml-2 tsize-small mt-1' href={'/profile'}>{session.user.name}</Link>
                             </>
                         )
                     ) : (
